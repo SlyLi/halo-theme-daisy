@@ -55,7 +55,8 @@
                         </div>
                     </div>
                 </#list>
-                <@categoryPostsnavigation/>
+                <@navigation method="categoryPosts" slug="${category.slug!}"/>
+                <#--  <@categoryPostsnavigation/>  -->
             </div>
             <div class="sidebar lg:w-[27%] block overflow-hidden mb-12">
                 <div class="flex flex-col space-y-12">

@@ -18,7 +18,9 @@
                                     <a href="${blog_url!}/admin/index.html#/posts/edit?postId=${post.id!}" 
 target="_parent">编辑</a>
                                 </span>
-                                
+                                    <span class="mr-1">
+                                    /
+                                </span>
                                 <#list post.categories as categorie>
                                     <span class="mr-1">
                                     <a href="${categorie.fullPath}">${categorie.name}</a>
@@ -34,11 +36,17 @@ target="_parent">编辑</a>
                                 <span>
                                     ${post.updateTime?string("yyyy-MM-dd")}
                                 </span>
+
+                                    <span class="mr-1">
+                                    /
+                                </span>
+                                <span>阅读
+                                    ${post.visits}
+                                </span>
                                
                             </div>
-
+                                
                             <div>
-                                 
                                 <a class="flex space-x-2 block" href="#comment" title="评论一下">
                                     <i class="ri-chat-2-line"></i>
                                     <span>${post.commentCount!}</span>

@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </#list>
-                <@navigation/>
+                <@navigation method="index" />
             </div>
             <div class="sidebar lg:w-[27%] block overflow-hidden mb-12">
                 <div class="flex flex-col space-y-12">

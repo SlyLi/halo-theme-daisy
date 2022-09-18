@@ -76,3 +76,4 @@ function removeCommentCopyright() {
         comment.shadowRoot.append(style)
     }
 }
+

@@ -87,8 +87,15 @@
                 <@menuTag method="list">
                     <#list menus?sort_by('priority') as menu>
                         <li>
+                            <#--  <a class="hover:text-black block w-full hover:tracking-wider duration-300"
+                               href="${menu.url!}">${menu.name!} </a>  -->
+                            <#if menu.url == '/admin'>
+                            <a class="hover:text-black block w-full hover:tracking-wider duration-300"
+                               href="${menu.url!}" data-no-instant>${menu.name!} </a>
+                            <#else>
                             <a class="hover:text-black block w-full hover:tracking-wider duration-300"
                                href="${menu.url!}">${menu.name!} </a>
+                            </#if>
                         </li>
                     </#list>
                 </@menuTag>
@@ -182,11 +189,11 @@
     </header>
 </#macro>
 
-<#macro navigation>
+<#macro navigation method slug="" keyword="">
     <div class="bg-white p-4 hover:shadow-lg duration-300 mb-12">
         <nav aria-label="Page navigation">
             <ul class="flex justify-between list-style-none space-x-3">
-                <@paginationTag method="index" page="${posts.number}" total="${posts.totalPages}" display="3">
+                <@paginationTag method="${method}" page="${posts.number?c}" total="${posts.totalPages}" display="3" slug="${slug!}" keyword="${keyword!}">
                     <li class="page-item">
                         <#if pagination.hasPrev>
                             <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
@@ -211,122 +218,6 @@
     </div>
 </#macro>
 
-<#macro archivesnavigation>
-    <div class="bg-white p-4 hover:shadow-lg duration-300 mb-12">
-        <nav aria-label="Page navigation">
-            <ul class="flex justify-between list-style-none space-x-3">
-                <@paginationTag method="archives" page="${posts.number}" total="${posts.totalPages}" display="3">
-                    <li class="page-item">
-                        <#if pagination.hasPrev>
-                            <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-                               href="${pagination.prevPageFullPath!}">上一页</a>
-                        </#if>
-                    </li>
-                    <li>
-                                    <span class="page-link relative block py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 rounded text-gray-800 text-gray-800 bg-gray-200 shadow-none">
-                                        ${posts.number + 1} / ${posts.totalPages}
-                                    </span>
-                    </li>
-
-                    <li class="page-item">
-                        <#if pagination.hasNext>
-                            <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-                               href="${pagination.nextPageFullPath!}">下一页</a>
-                        </#if>
-                    </li>
-                </@paginationTag>
-            </ul>
-        </nav>
-    </div>
-</#macro>
-
-<#macro searchnavigation>
-    <div class="bg-white p-4 hover:shadow-lg duration-300 mb-12">
-        <nav aria-label="Page navigation">
-            <ul class="flex justify-between list-style-none space-x-3">
-                <@paginationTag method="search" page="${posts.number}" total="${posts.totalPages}" keyword="${keyword}" display="3">
-                    <li class="page-item">
-                        <#if pagination.hasPrev>
-                            <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-                               href="${pagination.prevPageFullPath!}">上一页</a>
-                        </#if>
-                    </li>
-                    <li>
-                                    <span class="page-link relative block py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 rounded text-gray-800 text-gray-800 bg-gray-200 shadow-none">
-                                        ${posts.number + 1} / ${posts.totalPages}
-                                    </span>
-                    </li>
-
-                    <li class="page-item">
-                        <#if pagination.hasNext>
-                            <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-                               href="${pagination.nextPageFullPath!}">下一页</a>
-                        </#if>
-                    </li>
-                </@paginationTag>
-            </ul>
-        </nav>
-    </div>
-</#macro>
-  
-<#macro tagPostsnavigation>
-    <div class="bg-white p-4 hover:shadow-lg duration-300 mb-12">
-        <nav aria-label="Page navigation">
-            <ul class="flex justify-between list-style-none space-x-3">
-                <@paginationTag method="tagPosts" slug="${tag.slug!}" page="${posts.number}" total="${posts.totalPages}" display="3">
-                    <li class="page-item">
-                        <#if pagination.hasPrev>
-                            <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-                               href="${pagination.prevPageFullPath!}">上一页</a>
-                        </#if>
-                    </li>
-                    <li>
-                                    <span class="page-link relative block py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 rounded text-gray-800 text-gray-800 bg-gray-200 shadow-none">
-                                        ${posts.number + 1} / ${posts.totalPages}
-                                    </span>
-                    </li>
-
-                    <li class="page-item">
-                        <#if pagination.hasNext>
-                            <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-                               href="${pagination.nextPageFullPath!}">下一页</a>
-                        </#if>
-                    </li>
-                </@paginationTag>
-            </ul>
-        </nav>
-    </div>
-</#macro>
-  
-<#macro categoryPostsnavigation>
-    <div class="bg-white p-4 hover:shadow-lg duration-300 mb-12">
-        <nav aria-label="Page navigation">
-            <ul class="flex justify-between list-style-none space-x-3">
-                <@paginationTag method="categoryPosts" page="${posts.number}" slug="${category.slug!}" total="${posts.totalPages}" display="3">
-                    <li class="page-item">
-                        <#if pagination.hasPrev>
-                            <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-                               href="${pagination.prevPageFullPath!}">上一页</a>
-                        </#if>
-                    </li>
-                    <li>
-                                    <span class="page-link relative block py-1.5 px-3 rounded border-0 outline-none transition-all duration-300 rounded text-gray-800 text-gray-800 bg-gray-200 shadow-none">
-                                        ${posts.number + 1} / ${posts.totalPages}
-                                    </span>
-                    </li>
-
-                    <li class="page-item">
-                        <#if pagination.hasNext>
-                            <a class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-                               href="${pagination.nextPageFullPath!}">下一页</a>
-                        </#if>
-                    </li>
-                </@paginationTag>
-            </ul>
-        </nav>
-    </div>
-</#macro>
-  
 <#macro footer>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
